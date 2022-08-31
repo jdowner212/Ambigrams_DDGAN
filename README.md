@@ -2,7 +2,7 @@
 
 An ambigram is a series of characters that displays one message rightside-up and another (or same) message upside-down.<br>
 
-An example (drawn on my iPad):
+<br>An example (drawn on my iPad):
 
 <img src="https://github.com/jdowner212/Ambigrams_dual_discrim_GAN/blob/main/sample_images/one.png" width="300" height="200" />
 <img src="https://github.com/jdowner212/Ambigrams_dual_discrim_GAN/blob/main/sample_images/two.png" width="300" height="200" />
@@ -10,7 +10,7 @@ An example (drawn on my iPad):
 
 ### Drawing ambigrams with neural networks
 
-This example above is simple, but as words lengthen, ambigrams can be harder to produce by hand. Can we get a neural network to do the work for us? 
+The example above is simple, but as words lengthen, ambigrams can be harder to produce by hand. Can we get a neural network to do the work for us? 
 
 #### Generative Adversarial Networks (GANs)
 A traditional GAN (Generative Adversarial Network) consists of two core parts -- a discriminator network and a generator network. The discriminator is trained to distinguish between 'real' and 'fake' images, and the generator is a convolutional neural network that performs a forward pass on randomly-generated values to produce an image.
