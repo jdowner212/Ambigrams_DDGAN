@@ -4,7 +4,7 @@ An ambigram is a series of characters that displays one message rightside-up and
 
 A simple example (own work):
 
-![](https://github.com/jdowner212/Ambigrams_dual_discrim_GAN/blob/main/sample_images/one.png)
+![](https://github.com/jdowner212/Ambigrams_dual_discrim_GAN/blob/main/sample_images/one.png =300x200)
 ![](https://github.com/jdowner212/Ambigrams_dual_discrim_GAN/blob/main/sample_images/two.png)<br>
 
 This repository includes my implementation of a dual-discriminator GAN that tries to draw a character that looks like two arbitrary letters at once -- one rightside-up, the other upside-down.
