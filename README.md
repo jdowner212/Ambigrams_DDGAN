@@ -10,7 +10,7 @@ An ambigram is a series of characters that displays one message rightside-up and
 
 ### Drawing ambigrams with neural networks
 
-The example above is simple, but as words lengthen, ambigrams can be harder to produce by hand. Can we get a neural network to do the work for us? 
+The example above is simple, but as ambigrams lengthen, they get harder to produce by hand. Can a neural network do the work for us? 
 
 #### Generative Adversarial Networks (GANs)
 
