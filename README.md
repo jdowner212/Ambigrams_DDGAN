@@ -2,13 +2,10 @@
 
 An ambigram is a series of characters that displays one message rightside-up and another (or same) message upside-down.
 
-A simple example (own work):
+A simple example (drawn quickly on my iPad):
 
 <img src="https://github.com/jdowner212/Ambigrams_dual_discrim_GAN/blob/main/sample_images/one.png" width="300" height="200" />
 <img src="https://github.com/jdowner212/Ambigrams_dual_discrim_GAN/blob/main/sample_images/two.png" width="300" height="200" />
-
-![](https://github.com/jdowner212/Ambigrams_dual_discrim_GAN/blob/main/sample_images/one.png =300x200)
-![](https://github.com/jdowner212/Ambigrams_dual_discrim_GAN/blob/main/sample_images/two.png)<br>
 
 This repository includes my implementation of a dual-discriminator GAN that tries to draw a character that looks like two arbitrary letters at once -- one rightside-up, the other upside-down.
 
