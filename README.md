@@ -4,7 +4,9 @@ An ambigram is a series of characters that displays one message rightside-up and
 
 A simple example (own work):
 
-<img src="https://github.com/jdowner212/Ambigrams_dual_discrim_GAN/blob/main/sample_images/one.png" width="200" height="400" />
+<img src="https://github.com/jdowner212/Ambigrams_dual_discrim_GAN/blob/main/sample_images/one.png" width="300" height="200" />
+<img src="https://github.com/jdowner212/Ambigrams_dual_discrim_GAN/blob/main/sample_images/two.png" width="300" height="200" />
+
 ![](https://github.com/jdowner212/Ambigrams_dual_discrim_GAN/blob/main/sample_images/one.png =300x200)
 ![](https://github.com/jdowner212/Ambigrams_dual_discrim_GAN/blob/main/sample_images/two.png)<br>
 
