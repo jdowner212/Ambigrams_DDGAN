@@ -1,4 +1,10 @@
-In reference to the pretrained models included in this repository. For each letter pair (RS, AB, ZE) the differences between models were minimal, but differences between models of different letters varied considerably. i.e., RS 19 has similar settings to RS 20, but RS 19 is significanty different from ZE 6.
+*** About pre-trained models ***
+
+The hyperparameters used for each model can be found in `~models/{letters}/{model_name}/log.txt`.
+
+For each letter pair (RS, AB, ZE) the differences between models were minimal. However, differences 
+between models of different letter pairings varied considerably. This may have affected the following
+trends.
 
 'RS' models:
 
@@ -12,3 +18,8 @@ Did best epochs 5+, no evidence past 20 epochs.
 'ZE' models:
 
 Most starting showing some reasonable results around 6 or 7 epochs and continued to do so, but no evidence past 15 epochs
+
+
+*** About add_augmented_data() ***
+
+I ran this notebook in Colab, and for some reason, if a runtime ended, it wasn't able to properly read in existing data -- maybe you'll have better luck. But for this reason I called `add_augmented_data()` with `delete_existing = True` every time I started a new session.
