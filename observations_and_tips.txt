@@ -1,3 +1,14 @@
+In reference to the pretrained models included in this repository. For each letter pair (RS, AB, ZE) the differences between models were minimal, but differences between models of different letters varied considerably. i.e., RS 19 has similar settings to RS 20, but RS 19 is significanty different from ZE 6.
+
 'RS' models:
 
-Some RS models had a little bit of luck producing results in earlier epochs, but most did best with 20+ epochs. Did not attempt training over 30 epochs, but no there was no indication that it would be a bad idea.
+Some RS models had a little bit of luck producing results in earlier epochs, but most did best with 20+ epochs. 
+Did not attempt training over 30 epochs, but no there was no indication that it would be a bad idea.
+
+'AB' model:
+
+Did best epochs 5+, no evidence past 20 epochs.
+
+'ZE' models:
+
+Most starting showing some reasonable results around 6 or 7 epochs and continued to do so, but no evidence past 15 epochs
