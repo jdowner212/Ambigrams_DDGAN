@@ -1,4 +1,4 @@
-### pre-trained models
+### About pre-trained models
 
 **'RS' models:**
 
@@ -21,7 +21,7 @@ trends.
 The hyperparameters used for each model can be found in `~models/{letters}/{model_name}/log.txt`.
 
 
-### `add_augmented_data()`
+### Using `add_augmented_data()` in notebook
 
 I ran this notebook in Colab, and for some reason, if a runtime ended, it wasn't able to properly read in existing data -- 
 maybe you'll have better luck. But for this reason I called `add_augmented_data()` with `delete_existing = True` every 
