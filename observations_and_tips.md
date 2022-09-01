@@ -12,8 +12,7 @@ Did best epochs 5+, no evidence past 20 epochs.
 **'ZE' models:**
 
 Most starting showing some reasonable results around 6 or 7 epochs and continued to do so, but no evidence past 15 epochs
-
-
+<br><br>
 For each letter pair (RS, AB, ZE) the differences between models were minimal. However, differences 
 between models of different letter pairings varied considerably. This may have affected the above
 trends.
