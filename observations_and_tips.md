@@ -23,4 +23,4 @@ The hyperparameters used for each model can be found in `~models/{letters}/{mode
 
 I ran this notebook in Colab, and for some reason, if a runtime ended, it wasn't able to properly read in existing data -- 
 maybe you'll have better luck. But for this reason I called `add_augmented_data()` with `delete_existing = True` every 
-time I started a new session.
+time I started a new session. This took about 5 minutes for each pair of letters.
