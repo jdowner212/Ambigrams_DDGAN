@@ -1,0 +1,14 @@
+Model ZE_51:
+
+           
+                   lr_D = 0.0003,           
+                   lr_G = 0.0004,           
+                   weights_dec_D = 0.2696,           
+                   weights_dec_D = 0.6125,           
+                   betas_D = (0.4427, 0.9595),           
+                   betas_D = (0.1644, 0.4757),           
+                   netD_activation = Sigmoid,           
+                   netG_activation = Sigmoid,           
+                   node_factor = 32,           
+
+batch_size = 256,

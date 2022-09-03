@@ -1,0 +1,14 @@
+Model RS_27:
+
+           
+                   lr_D = 0.0003,           
+                   lr_G = 0.0005,           
+                   weights_dec_D = 0.5929,           
+                   weights_dec_D = 0.529,           
+                   betas_D = (0.4645, 0.6411),           
+                   betas_D = (0.2495, 0.5716),           
+                   netD_activation = Sigmoid,           
+                   netG_activation = Sigmoid,           
+                   node_factor = 32,           
+
+batch_size = 256,

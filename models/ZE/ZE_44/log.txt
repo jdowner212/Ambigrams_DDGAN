@@ -1,0 +1,14 @@
+Model ZE_44:
+
+           
+                   lr_D = 0.0004,           
+                   lr_G = 0.0005,           
+                   weights_dec_D = 0.3282,           
+                   weights_dec_D = 0.7178,           
+                   betas_D = (0.5686, 0.7258),           
+                   betas_D = (0.2878, 0.5966),           
+                   netD_activation = Sigmoid,           
+                   netG_activation = Sigmoid,           
+                   node_factor = 32,           
+
+batch_size = 256,

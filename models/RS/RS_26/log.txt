@@ -1,0 +1,14 @@
+Model RS_26:
+
+           
+                   lr_D = 0.0003,           
+                   lr_G = 0.0005,           
+                   weights_dec_D = 0.5439,           
+                   weights_dec_D = 0.5132,           
+                   betas_D = (0.5402, 0.6311),           
+                   betas_D = (0.3016, 0.5672),           
+                   netD_activation = Sigmoid,           
+                   netG_activation = Sigmoid,           
+                   node_factor = 32,           
+
+batch_size = 256,

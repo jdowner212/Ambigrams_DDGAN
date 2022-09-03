@@ -1,0 +1,14 @@
+Model RS_31:
+
+           
+                   lr_D = 0.0004,           
+                   lr_G = 0.0005,           
+                   weights_dec_D = 0.4645,           
+                   weights_dec_D = 0.4028,           
+                   betas_D = (0.5215, 0.6808),           
+                   betas_D = (0.2317, 0.5758),           
+                   netD_activation = Sigmoid,           
+                   netG_activation = Sigmoid,           
+                   node_factor = 32,           
+
+batch_size = 256,

@@ -1,0 +1,14 @@
+Model ZE_45:
+
+           
+                   lr_D = 0.0002,           
+                   lr_G = 0.0006,           
+                   weights_dec_D = 0.4564,           
+                   weights_dec_D = 0.5042,           
+                   betas_D = (0.4193, 0.4807),           
+                   betas_D = (0.1583, 0.5962),           
+                   netD_activation = Sigmoid,           
+                   netG_activation = Sigmoid,           
+                   node_factor = 32,           
+
+batch_size = 256,

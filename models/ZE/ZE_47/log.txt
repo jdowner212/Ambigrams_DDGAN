@@ -1,0 +1,14 @@
+Model ZE_47:
+
+           
+                   lr_D = 0.0003,           
+                   lr_G = 0.0007,           
+                   weights_dec_D = 0.5503,           
+                   weights_dec_D = 0.5666,           
+                   betas_D = (0.4635, 0.7367),           
+                   betas_D = (0.3721, 0.4268),           
+                   netD_activation = Sigmoid,           
+                   netG_activation = Sigmoid,           
+                   node_factor = 32,           
+
+batch_size = 256,

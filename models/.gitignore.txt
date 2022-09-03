@@ -1,3 +1,0 @@
-# Push empty folder
-
-!.gitignore
