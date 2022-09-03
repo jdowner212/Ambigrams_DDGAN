@@ -95,8 +95,6 @@ def create_transformed_groups(letter, total_number = 30000, data_dir=DATA_DIR, f
     try_to_make_folder(base_folder, print_message=None)
 
     print(letter)
-    print('base folder: ',base_folder)
-
     file_names = os.listdir(base_folder)
     file_paths_inside = [join(base_folder,f) for f in file_names]
     base_images = [Image.open(f) for f in file_paths_inside]
@@ -117,8 +115,7 @@ def create_transformed_groups(letter, total_number = 30000, data_dir=DATA_DIR, f
         if create_new == True:
             print('Group',g)
 
-            try_to_make_folder(group_folder, print_message=f'Problem creating folder: {group_folder}\n(function: create_transformed_groups)')
-
+            try_to_make_folder(group_folder, print_failure=True)
             transformed = [random_Ts(t) for t in tqdm(base_images)]
             random.shuffle(transformed)
             file_paths = [os.path.join(group_folder,f) for f in file_names]
@@ -130,12 +127,17 @@ def add_augmented_data(letter, total_number, data_dir=DATA_DIR, img_size = 240, 
     Multiply/augment the base folder data -- which you can re-collect by passing 'delete_existing=True'
     '''
     if delete_existing == True:
-        this_letter_folder = f'{data_dir}/{letter}'
-        print('Removing/re-doing the following folders:')
-        for folder in os.listdir(this_letter_folder):
-            folder = join(this_letter_folder,folder)
-            print(folder)
-            shutil.rmtree(folder)
+        try:
+            this_letter_folder = f'{data_dir}/{letter}'
+            print('Removing/re-doing the following folders:')
+            for folder in os.listdir(this_letter_folder):
+                folder = join(this_letter_folder,folder)
+                print(folder)
+                shutil.rmtree(folder)
+        except:
+            print(f'Can\'t remove/redo {letter} data because there isn\'t any to begin with.\n(function: add_augmented_data)')
+            #print('Creating base folder:')
+            #create_base_images(letter, img_size, data_dir, fonts_folder=FONTS_DIR)
     create_base_images(letter, img_size)
     create_transformed_groups(letter,total_number)
 
@@ -196,21 +198,27 @@ def get_next_model_name(letters, model_folder=MODELS_DIR):
     '''
     Given two letters, return name of next model to be created
     '''
-    model_names = [f for f in os.listdir(model_folder) if letters in f]
-    model_numbers = []
-    possible = True
-
-    i=0
-
-    while possible:
-        i-=1
-        try:
-            more_numbers = sorted([f[i:] for f in model_names if f[i] in '0123456789'], reverse=True )
-            model_numbers += more_numbers
-            model_numbers=sorted([int(n) for n in model_numbers], reverse=True)
-        except:
-            possible=False
-    next_model_name = f'{letters}_1' if len(model_names) == 0 else f'{letters}_{str(int(model_numbers[0]) + 1)}'   
+    #model_letter_folders = [f for f in os.listdir(model_folder) if letters in f]
+    model_letter_folder = join(model_folder, letters)
+    try_to_make_folder(model_letter_folder)
+    model_names = [f for f in os.listdir(model_letter_folder) if letters in f and '.' not in f]
+    
+    if len(model_names) == 0:
+        next_model_name = f'{letters}_0'
+    
+    else:
+        model_numbers = []
+        possible = True
+        i=0
+        while possible:
+            i-=1
+            try:
+                more_numbers = sorted([f[i:] for f in model_names if f[i] in '0123456789'], reverse=True )
+                model_numbers += more_numbers
+                model_numbers=sorted([int(n) for n in model_numbers], reverse=True)
+            except:
+                possible=False
+        next_model_name = f'{letters}_1' if len(model_names) == 0 else f'{letters}_{str(int(model_numbers[0]) + 1)}'   
     return next_model_name
 
 
@@ -219,8 +227,10 @@ def create_model_folder(letters, next_model_name, model_folder = MODELS_DIR):
     Create the folder for this specific model and instantiate a 'log.txt' file
     to record training hyperparameters
     '''
-    next_model_folder = join(model_folder, next_model_name)
-    try_to_make_folder(next_model_folder,print_message='\nran into an issue')
+    model_letters_folder = join(model_folder, letters)
+    try_to_make_folder(model_letters_folder)
+    next_model_folder = join(model_letters_folder, next_model_name)
+    try_to_make_folder(next_model_folder)
 
     try:
         log_file = join(next_model_folder, 'log.txt')

@@ -24,9 +24,9 @@ def init_weights(m):
 def save_k_images(img_batch, next_model_name, epoch, k=25, model_folder=MODELS_DIR):
     img_batch_rot = rot180(torch.tensor(img_batch)).detach().clone().numpy()
     assert k < len(img_batch)
-    assert os.path.exists(f'{model_folder}/{next_model_name}/epoch_{epoch}')
+    assert os.path.exists(f'{model_folder}/{next_model_name[:2]}/{next_model_name}/epoch_{epoch}')
 
-    try_to_make_folder(f'{model_folder}/{next_model_name}/epoch_{epoch}/images', print_message='\nFailed to create image folder -- may already exist\n(function: save_k_images)')
+    try_to_make_folder(f'{model_folder}/{next_model_name[:2]}/{next_model_name}/epoch_{epoch}/images', print_message='\nFailed to create image folder -- may already exist\n(function: save_k_images)')
 
     letters = next_model_name[:2]
     for i in range(k):
@@ -41,7 +41,7 @@ def save_k_images(img_batch, next_model_name, epoch, k=25, model_folder=MODELS_D
         axs[1].set_title(letters[1])
         axs[1].axis('off')
 
-        fig.savefig(f'{model_folder}/{next_model_name}/epoch_{epoch}/images/{i}.png')
+        fig.savefig(f'{model_folder}/{next_model_name[:2]}/{next_model_name}/epoch_{epoch}/images/{i}.png')
         plt.close()
 
 def plot_results(epoch, imgs, lossD1_reals, lossD2_reals, lossD1_fakes, lossD2_fakes, lossGs, next_model_name, batch_count, y_max=20, save=True, model_folder=MODELS_DIR):
@@ -75,8 +75,8 @@ def plot_results(epoch, imgs, lossD1_reals, lossD2_reals, lossD1_fakes, lossD2_f
 
             fig.add_subplot(ax)
             if save==True:
-                try_to_make_folder(f'{model_folder}/{next_model_name}/epoch_{epoch}')
-                fig.savefig(f'{model_folder}/{next_model_name}/epoch_{epoch}/graph.png')
+                try_to_make_folder(f'{model_folder}/{next_model_name[:2]}/{next_model_name}/epoch_{epoch}')
+                fig.savefig(f'{model_folder}/{next_model_name[:2]}/{next_model_name}/epoch_{epoch}/graph.png')
 
     all_axes = fig.get_axes()
 
@@ -133,37 +133,36 @@ def save_model(letters, epoch, batch_size, image_size, netD1, netD2, netG, opt_D
     lr_D, betas_D, eps_D, weights_dec_D, _, _, _, _ = list(opt_D2.param_groups[0].values())[1:]
     lr_G, betas_G, eps_G, weights_dec_G, _, _, _, _  = list(opt_G.param_groups[0].values())[1:]
 
-    with open(f'{model_folder}/{next_model_name}/log.txt', 'w') as f:
+    with open(f'{model_folder}/{letters}/{next_model_name}/log.txt', 'w') as f:
         as_string = model_as_string(next_model_name, lr_D, lr_G, weights_dec_D, weights_dec_G, betas_D, betas_G, act_D, act_G, node_factor, batch_size)
         f.write(as_string)                                   
     f.close()
 
-    try_to_make_folder(f'{model_folder}/{next_model_name}/epoch_{epoch}/models', print_message = f"\nIssue creating {model_folder}/{next_model_name}/{epoch}/models -- may already exist\n(function: save_model)")
+    try_to_make_folder(f'{model_folder}/{letters}/{next_model_name}/epoch_{epoch}/models', print_message = f"\nIssue creating {model_folder}/{next_model_name}/{epoch}/models -- may already exist\n(function: save_model)")
     for (net,net_name) in [(netD1, 'netD1'), (netD2, 'netD2'), (netG, 'netG')]:
-        torch.save(net, f'{model_folder}/{next_model_name}/epoch_{epoch}/models/{net_name}_epoch_{epoch}.pt')
+        torch.save(net, f'{model_folder}/{letters}/{next_model_name}/epoch_{epoch}/models/{net_name}_epoch_{epoch}.pt')
 
 
-def train_multiple_GAN(L1_batches, 
-                       L2_batches, 
-                       letters, 
-                       lr_D,
-                       lr_G,
-                       weights_dec_D,
-                       weights_dec_G,
-                       betas_D,
-                       betas_G,
-                       activation_D,
-                       activation_G,
-                       node_factor,
-                       epochs,
-                       model_folder = MODELS_DIR, 
-                       D1_path = None,
-                       D2_path = None,
-                       G_path  = None,
-                       #current_epoch = 0
-                       save_plots=True, 
-                       plot_every=1,
-                       test_compile=False):
+def train_ambigram_DDGAN(L1_batches, 
+                         L2_batches, 
+                         letters, 
+                         lr_D,
+                         lr_G,
+                         weights_dec_D,
+                         weights_dec_G,
+                         betas_D,
+                         betas_G,
+                         activation_D,
+                         activation_G,
+                         node_factor,
+                         epochs,
+                         model_folder = MODELS_DIR, 
+                         D1_path = None,
+                         D2_path = None,
+                         G_path  = None,
+                         save_plots=True, 
+                         plot_every=1,
+                         test_compile=False):
 
     assert len(L1_batches[0].shape) == len(L2_batches[0].shape)
 
@@ -172,13 +171,11 @@ def train_multiple_GAN(L1_batches,
         L2_batches = {i: L2_batches[i] for i in range(5)}
         epochs=1
 
-
     batch_count = len(L1_batches)
     batch_size  = len(L1_batches[0])
 
     image_size  = L1_batches[0][0].shape[1]
     channels    = L1_batches[0][0].shape[0]
-
 
     # Continues training if existing models provided, otherwise creates new ones
     netG, netD1, netD2, next_model_name, starting_epoch = new_or_existing_models(G_path, D1_path, D2_path, node_factor, channels, image_size, activation_G, activation_D, letters, model_folder)
@@ -190,14 +187,13 @@ def train_multiple_GAN(L1_batches,
     opt_D2 = optim.Adam(netD2.parameters(), lr=lr_D, betas=betas_D, weight_decay=weights_dec_D)
     opt_G  = optim.Adam(netG.parameters(),  lr=lr_G, betas=betas_G, weight_decay=weights_dec_G)
 
-
     as_string = model_as_string(next_model_name, lr_D, lr_G, weights_dec_D, weights_dec_G, betas_D, betas_G, activation_D, activation_G, node_factor, batch_size)
     print(as_string)
 
     lossD1_reals, lossD2_reals, lossD1_fakes, lossD2_fakes, lossGs = [], [], [], [], []
     print('epochs + starting_epoch:',epochs+starting_epoch)
     for e in range(starting_epoch, epochs+starting_epoch):
-        try_to_make_folder(os.path.join(model_folder, next_model_name, f'epoch_{e}'))
+        try_to_make_folder(os.path.join(model_folder, letters, next_model_name, f'epoch_{e}'))
         print('Epoch', e)
         for i in tqdm(range(batch_count)):
             sys.stdout.write('\r'+ f'Batch {i}/{batch_count}')
@@ -234,10 +230,24 @@ def train_multiple_GAN(L1_batches,
             print(f"D2_fake loss: {round(lossD2_fake.item(),4)}")
 
 def generate_sample(model_name, epoch, count=10, model_folder=MODELS_DIR):
-    complete_path = os.path.join(model_folder, f'{model_name}/epoch_{epoch}/models/netG_epoch_{epoch}.pt')
-    print('model_folder:',model_folder)
-    print('path: ', complete_path)
+    complete_path = os.path.join(model_folder, f'{model_name[:2]}/{model_name}/epoch_{epoch}/models/netG_epoch_{epoch}.pt')
+    print('Generator model loaded from the following location:\n' + complete_path)
+
     this_net_G = torch.load(complete_path)
     noise = torch.randn(count,100,1,1,device='cuda')
-    fake_image = this_net_G(noise)
-    return fake_image
+    sample = this_net_G(noise)
+    sample_rot = rot180(sample).cpu().detach().clone().numpy()
+
+    letters = model_name[:2]
+    for i in range(sample.shape[0]):
+        img     = prep_img_array_for_plot(sample[i])
+        img_rot = prep_img_array_for_plot(sample_rot[i])
+
+        fig, axs = plt.subplots(1,2)
+        axs[0].imshow(img.cpu())
+        axs[0].set_title(letters[0])
+        axs[0].axis('off')
+        axs[1].imshow(img_rot.cpu())
+        axs[1].set_title(letters[1])
+        axs[1].axis('off')
+        plt.show()

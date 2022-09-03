@@ -60,13 +60,17 @@ def val(original, random_delta=0):
     else:
         return original
 
-def try_to_make_folder(path, print_message=None):
+def try_to_make_folder(path, print_exists = False, print_failure = False, print_message=None):
     '''
     create folder and handle exceptions.
     '''
     try:
         os.mkdir(path)
     except:
+        if os.path.exists(path) and print_exists==True:
+            print(f'Folder already exists: {path}')
+        elif not os.path.exists(path) and print_failure==True:
+            print(f'Could not create folder: {path}')
         if print_message:
             print(print_message)
 
